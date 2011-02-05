@@ -34,5 +34,5 @@ if __name__ == "__main__":
         sys.exit(0)
     else:
         print 'No pcap file is provided. Won\'t check for phishing!\n'
-        print 'Usage: checkurl.py <pcap file>'
+        + 'Usage: checkurl.py <pcap file>'
         sys.exit(0)
