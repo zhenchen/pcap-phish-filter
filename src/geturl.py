@@ -18,10 +18,20 @@
 #  Author Tianyang Li
 #  E-Mail tmy1018 gmail com
 
+"""
+A module for checking URL's found in a pcap file for phishing
+"""
+
 import sys
 
+import pcap
 
+def check_url(URL):
 
-
-
-
+if __name__ == "__main__":
+    if sys.argv[1] != '':
+        sys.exit(0)
+    else:
+        print 'No pcap file is provided. Won\'t check for phishing!\n'
+        print 'Usage: checkurl.py <pcap file>'
+        sys.exit(0)
