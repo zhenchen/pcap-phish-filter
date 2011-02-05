@@ -27,6 +27,7 @@ import sys
 import pcap
 
 def check_url(URL):
+    return True
 
 if __name__ == "__main__":
     if sys.argv[1] != '':
