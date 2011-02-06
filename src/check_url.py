@@ -22,6 +22,12 @@
 A module for checking URL's found in a pcap file for phishing
 """
 
+__author__ = 'Tianyang Li <tmy1018 at gmail.com>'
+__copyright__ = 'Copyright (c) 2011 Tianyang Li'
+__license__ = 'GPL v3'
+__url__ = 'http://code.google.com/p/pcap-phish-filter/'
+__version__ = '0.0'
+
 import sys
 
 import pcap
