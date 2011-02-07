@@ -19,26 +19,28 @@
 #  E-Mail tmy1018 gmail com
 
 """
-A module for checking URL's found in a pcap file for phishing
+A module for checking URL using Google Safe Browsing
 """
 
 __author__ = 'Tianyang Li <tmy1018 at gmail.com>'
 __copyright__ = 'Copyright (c) 2011 Tianyang Li'
-__license__ = 'GPL v3'
+__license__ = 'GPLv3'
 __url__ = 'http://code.google.com/p/pcap-phish-filter/'
 __version__ = '0.0'
 
 import sys
-
-import pcap
 
 def check_url(URL):
     return True
 
 if __name__ == "__main__":
     if sys.argv[1] != '':
+        if check_url(sys.argv[1]) == True:
+            print 'This is a phishing site!'
+        else:
+            print 'This is not a phishing site.'
         sys.exit(0)
     else:
-        print 'No pcap file is provided. Won\'t check for phishing!\n'
-        + 'Usage: checkurl.py <pcap file>'
+        print 'No URL is provided. Won\'t check for phishing!\n'
+        + 'Usage: checkurl.py <URL>\n'
         sys.exit(0)
