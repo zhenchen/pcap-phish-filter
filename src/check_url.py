@@ -30,12 +30,36 @@ __version__ = '0.0'
 
 import sys
 
-def check_url(URL):
-    return True
+class CheckUrl:
+    api_key = ''
+    
+    @staticmethod  
+    def GetAPIKey():
+        """
+        Google API key is located in file 'api-key'
+        """
+        try:
+            fin = open('api-key', 'r')
+        except IOError:
+            print 'Unable to find \'api-key\' file containing the API key'
+            sys.exit(0)
+        else:
+            CheckUrl.api_key = fin.readline().replace('\n','')
+            fin.close()
+    
+    @staticmethod        
+    def IsPhish(url):
+        if CheckUrl.api_key == '':
+            CheckUrl.GetAPIKey()
+            
+        return True
+    
+    def __init__(self):
+        CheckUrl.GetAPIKey()
 
 if __name__ == "__main__":
     if sys.argv[1] != '':
-        if check_url(sys.argv[1]) == True:
+        if CheckUrl.IsPhish(sys.argv[1]) == True:
             print 'This is a phishing site!'
         else:
             print 'This is not a phishing site.'
