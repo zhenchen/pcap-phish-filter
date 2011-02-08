@@ -26,8 +26,6 @@ import sys
 
 import check_url
 
-print check_url.CheckURL.api_key
-
 
 
 

@@ -28,13 +28,10 @@ __license__ = 'GPLv3'
 __url__ = 'http://code.google.com/p/pcap-phish-filter/'
 __version__ = '0.0'
 
-import sys
+import sys, os
 
 class CheckURL:
-    api_key = ''
-    
-    @staticmethod  
-    def GetAPIKey():
+    def GetAPIKey(self):
         """
         Google API key is located in file 'api-key'
         """
@@ -44,33 +41,18 @@ class CheckURL:
             print 'Unable to find \'api-key\' file containing the API key'
             sys.exit(0)
         else:
-            CheckURL.api_key = fin.readline().replace('\n','')
+            self.api_key = fin.readline().replace('\n','')
             fin.close()
     
-    @staticmethod        
-    def IsPhish(url):            
-        """ TODO: change the return of this function to a list of phishing URL's (?)"""    
-        return True
-        
-CheckURL.GetAPIKey()
+    def __init__(self, pcap_file):
+        if os.path.isfile(pcap_file) == False:
+            print 'pcap file not found!'
+            sys.exit(0)
 
 if __name__ == "__main__":
-    """
-    TODO: take URL or pcap as input?
-    """
-    """
-    if sys.argv[1] != '':
-        if CheckUrl.IsPhish(sys.argv[1]) == True:
-            print 'This is a phishing site!'
-        else:
-            print 'This is not a phishing site.'
+    if sys.argv[1] == '':
+        print 'No pcap file provded!'
         sys.exit(0)
+        
     else:
-        print 'No URL is provided. Won\'t check for phishing!\n'
-        + 'Usage: checkurl.py <URL>\n'
-        sys.exit(0)
-    """
-    """
-    TODO: remove this print
-    """
-    print CheckURL.api_key
+        pf = CheckURL(sys.argv[1])
