@@ -48,16 +48,17 @@ class CheckUrl:
             fin.close()
     
     @staticmethod        
-    def IsPhish(url):
-        if CheckUrl.api_key == '':
-            CheckUrl.GetAPIKey()
-            
+    def IsPhish(url):            
+        """ TODO: change the return of this function"""    
         return True
-    
-    def __init__(self):
-        CheckUrl.GetAPIKey()
+        
+CheckUrl.GetAPIKey()
 
 if __name__ == "__main__":
+    """
+    TODO: take URL or pcap as input?
+    """
+    """
     if sys.argv[1] != '':
         if CheckUrl.IsPhish(sys.argv[1]) == True:
             print 'This is a phishing site!'
@@ -68,3 +69,8 @@ if __name__ == "__main__":
         print 'No URL is provided. Won\'t check for phishing!\n'
         + 'Usage: checkurl.py <URL>\n'
         sys.exit(0)
+    """
+    """
+    TODO: remove this print
+    """
+    print CheckUrl.api_key
