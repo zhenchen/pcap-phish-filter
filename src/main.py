@@ -18,9 +18,15 @@
 #  Author Tianyang Li
 #  E-Mail tmy1018 gmail com
 
+"""
+This is currently used for testing
+"""
+
 import sys
 
 import check_url
+
+print check_url.CheckURL.api_key
 
 
 

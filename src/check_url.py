@@ -30,7 +30,7 @@ __version__ = '0.0'
 
 import sys
 
-class CheckUrl:
+class CheckURL:
     api_key = ''
     
     @staticmethod  
@@ -44,15 +44,15 @@ class CheckUrl:
             print 'Unable to find \'api-key\' file containing the API key'
             sys.exit(0)
         else:
-            CheckUrl.api_key = fin.readline().replace('\n','')
+            CheckURL.api_key = fin.readline().replace('\n','')
             fin.close()
     
     @staticmethod        
     def IsPhish(url):            
-        """ TODO: change the return of this function"""    
+        """ TODO: change the return of this function to a list of phishing URL's (?)"""    
         return True
         
-CheckUrl.GetAPIKey()
+CheckURL.GetAPIKey()
 
 if __name__ == "__main__":
     """
@@ -73,4 +73,4 @@ if __name__ == "__main__":
     """
     TODO: remove this print
     """
-    print CheckUrl.api_key
+    print CheckURL.api_key
