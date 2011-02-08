@@ -48,6 +48,8 @@ class CheckURL:
         if os.path.isfile(pcap_file) == False:
             print 'pcap file not found!'
             sys.exit(0)
+        else:
+            self.GetAPIKey()
 
 if __name__ == "__main__":
     if sys.argv[1] == '':
