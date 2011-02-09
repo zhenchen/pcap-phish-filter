@@ -30,6 +30,8 @@ __version__ = '0.0'
 
 import sys, os
 
+import pcap, expression
+
 class CheckURL:
     def GetAPIKey(self):
         """
@@ -44,12 +46,20 @@ class CheckURL:
             self.api_key = fin.readline().replace('\n','')
             fin.close()
     
+    @staticmethod        
+    def CanonicalizeURL(url):
+        """
+        Google Safe Browsing API is used
+        """
+        return expression.ExpressionGenerator.CanonicalizeUrl(url)
+    
     def __init__(self, pcap_file):
         if os.path.isfile(pcap_file) == False:
             print 'pcap file not found!'
             sys.exit(0)
         else:
             self.GetAPIKey()
+            self.pcap_offline = pcap(pcap_file)
 
 if __name__ == "__main__":
     if sys.argv[1] == '':

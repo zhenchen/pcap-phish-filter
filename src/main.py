@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env /usr/bin/python
 
 #  Copyright (C) 2011 Tianyang Li
 #
@@ -25,6 +25,7 @@ This is currently used for testing
 import sys
 
 import check_url
+
 
 
 
