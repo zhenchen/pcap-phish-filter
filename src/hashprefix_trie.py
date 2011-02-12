@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.5
+#!/usr/bin/env /usr/bin/python
 #
 # Copyright 2010 Google Inc.
 #

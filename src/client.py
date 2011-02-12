@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.5
+#!/usr/bin/env /usr/bin/python
 #
 # Copyright 2008 Google Inc.
 #
@@ -400,7 +400,8 @@ def PrintUsage(argv):
 
 
 def CheckForUrl(apikey, urls):
-  checking_datastore_loc = os.path.join(tempfile.mkdtemp(), 'datastore_checker')
+  # checking_datastore_loc = os.path.join(tempfile.mkdtemp(), 'datastore_checker')
+  checking_datastore_loc = './api-test/datastore_checker'
   ds = datastore.DataStore(checking_datastore_loc)
 
   checker = UrlChecker(urls)

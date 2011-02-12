@@ -43,15 +43,8 @@ class CheckURL:
             print 'Unable to find \'api-key\' file containing the API key'
             sys.exit(0)
         else:
-            self.api_key = fin.readline().replace('\n','')
+            self._api_key = fin.readline().replace('\n','')
             fin.close()
-    
-    @staticmethod        
-    def CanonicalizeURL(url):
-        """
-        Google Safe Browsing API is used
-        """
-        return expression.ExpressionGenerator.CanonicalizeUrl(url)
     
     def __init__(self, pcap_file):
         if os.path.isfile(pcap_file) == False:
@@ -59,7 +52,7 @@ class CheckURL:
             sys.exit(0)
         else:
             self.GetAPIKey()
-            self.pcap_offline = pcap(pcap_file)
+            self._pcap_offline = pcap(pcap_file)
 
 if __name__ == "__main__":
     if sys.argv[1] == '':
