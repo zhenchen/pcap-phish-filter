@@ -170,7 +170,7 @@ class Client(object):
 
   def __init__(self, ds, apikey, hp=('safebrowsing.clients.google.com', 80),
                ssl_hp=('sb-ssl.google.com', 443), base_path='/safebrowsing',
-               use_mac=True, size_limit=None, force_delay=None,
+               use_mac=False, size_limit=None, force_delay=None,
                pre_update_hook=lambda cl: None,
                post_update_hook=lambda cl: None, gethash_server=None,
                update_lists=False, sb_server=None, sb_lists=None):

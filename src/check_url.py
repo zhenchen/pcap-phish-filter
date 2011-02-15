@@ -55,6 +55,7 @@ class CheckURL:
             sys.exit(0)
         self.GetAPIKey()
         self._pcap_offline = pcap.pcap(pcap_file)
+        # MAC will not be used
         self._server = server.Server()
         self._sbls = dict([(x.Name(), x) for x in self._server.GetLists()])
 
