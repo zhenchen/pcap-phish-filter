@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Modified by Tianyang Li 2011
+
 """Google Safe Browsing protocol version 2.2 client."""
 
 import datetime
@@ -160,7 +162,8 @@ class Client(object):
   lists are available.
   """
 
-  DEFAULT_DELAY = 60 * 15
+  # DEFAULT_DELAY = 60 * 15
+  DEFAULT_DELAY = 60 
 
   UPDATED_MAX = datetime.timedelta(seconds=10)
   # UPDATED_MAX = datetime.timedelta(minutes=45)

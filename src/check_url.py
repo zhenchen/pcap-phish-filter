@@ -30,7 +30,10 @@ __version__ = '0.0'
 
 import sys, os
 
-import pcap, expression
+import pcap
+import client
+import sblist
+import server
 
 class CheckURL:
     def GetAPIKey(self):
@@ -50,9 +53,10 @@ class CheckURL:
         if os.path.isfile(pcap_file) == False:
             print 'pcap file not found!'
             sys.exit(0)
-        else:
-            self.GetAPIKey()
-            self._pcap_offline = pcap(pcap_file)
+        self.GetAPIKey()
+        self._pcap_offline = pcap.pcap(pcap_file)
+        self._server = server.Server()
+        self._sbls = dict([(x.Name(), x) for x in self._server.GetLists()])
 
 if __name__ == "__main__":
     if sys.argv[1] == '':

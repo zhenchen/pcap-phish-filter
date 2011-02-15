@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Modified by Tianyang Li 2011
+
 """Encapsulates interaction with the safebrowsing servers."""
 
 import sblist
@@ -89,7 +91,9 @@ class Server(object):
   # Bytes in a full length hash (full sha256).
   FULLHASHLEN = 32
 
-  def __init__(self, hp, ssl_hp, base_path, clientkey=None, wrkey=None,
+  def __init__(self, hp=('safebrowsing.clients.google.com', 80), 
+               ssl_hp=('sb-ssl.google.com', 443), base_path='/safebrowsing', 
+               clientkey=None, wrkey=None,
                apikey=None, timeout=20, gethash_server=None,
                url_request_function=UrllibRequest):
     assert callable(url_request_function)
