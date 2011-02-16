@@ -32,8 +32,6 @@ import sys, os
 
 import pcap
 import client
-import sblist
-import server
 
 class CheckURL:
     def GetAPIKey(self):
@@ -55,9 +53,8 @@ class CheckURL:
             sys.exit(0)
         self.GetAPIKey()
         self._pcap_offline = pcap.pcap(pcap_file)
-        # MAC will not be used
-        self._server = server.Server()
-        self._sbls = dict([(x.Name(), x) for x in self._server.GetLists()])
+        
+        # use a modified version of Google API client 
 
 if __name__ == "__main__":
     if sys.argv[1] == '':

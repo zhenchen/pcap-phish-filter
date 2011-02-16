@@ -163,14 +163,14 @@ class Client(object):
   """
 
   # DEFAULT_DELAY = 60 * 15
-  DEFAULT_DELAY = 60 
+  DEFAULT_DELAY = 100 
 
   UPDATED_MAX = datetime.timedelta(seconds=10)
   # UPDATED_MAX = datetime.timedelta(minutes=45)
 
   def __init__(self, ds, apikey, hp=('safebrowsing.clients.google.com', 80),
                ssl_hp=('sb-ssl.google.com', 443), base_path='/safebrowsing',
-               use_mac=False, size_limit=None, force_delay=None,
+               use_mac=True, size_limit=None, force_delay=None,
                pre_update_hook=lambda cl: None,
                post_update_hook=lambda cl: None, gethash_server=None,
                update_lists=False, sb_server=None, sb_lists=None):
