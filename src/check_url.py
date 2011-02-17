@@ -47,6 +47,12 @@ class CheckURL:
             self._api_key = fin.readline().replace('\n','')
             fin.close()
     
+    def ExtractURL(self):
+        """
+        return a list of URL's extracted from pcap file
+        """
+        return
+    
     def __init__(self, pcap_file):
         if os.path.isfile(pcap_file) == False:
             print 'pcap file not found!'
@@ -54,12 +60,21 @@ class CheckURL:
         self.GetAPIKey()
         self._pcap_offline = pcap.pcap(pcap_file)
         
-        # use a modified version of Google API client 
+    def CheckForURL(self):
+        client.CheckForUrl(self._api_key, self.ExtractURL())
+        
+        
 
-if __name__ == "__main__":
+def main():
     if sys.argv[1] == '':
         print 'No pcap file provded!'
-        sys.exit(0)
-        
+        sys.exit(0)        
     else:
         pf = CheckURL(sys.argv[1])
+        pf.CheckForURL()
+        sys.exit(0)
+        
+        
+if __name__ == "__main__":
+    main()
+

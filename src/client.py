@@ -368,6 +368,9 @@ class UrlChecker(object):
   def __init__(self, urls):
     self._urls = urls
     self._event = threading.Event()
+    """
+    TODO: add db support for storing 
+    """
 
   def Updated(self, cl):
     """
@@ -390,6 +393,9 @@ class UrlChecker(object):
       else:
         for listname, matching in matches:
           print '\t%s: %s' % (listname, matching)
+          """
+          TODO: add database support for storing phishing URL
+          """
     self._event.set()
 
   def WaitForFinish(self):
@@ -405,7 +411,7 @@ def PrintUsage(argv):
 
 def CheckForUrl(apikey, urls):
   # checking_datastore_loc = os.path.join(tempfile.mkdtemp(), 'datastore_checker')
-  checking_datastore_loc = './api-test/datastore_checker'
+  checking_datastore_loc = './sb-datastore/datastore_checker'
   ds = datastore.DataStore(checking_datastore_loc)
 
   checker = UrlChecker(urls)
@@ -430,7 +436,7 @@ def main(argv):
   apikey = argv[1]
   command = argv[2]
   if command == "check":
-    CheckForUrl(apikey, argv[2:])
+    CheckForUrl(apikey, argv[3:])
   else:
     PrintUsage(argv)
     return 1
