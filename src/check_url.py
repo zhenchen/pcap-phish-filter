@@ -28,10 +28,12 @@ __license__ = 'GPLv3'
 __url__ = 'http://code.google.com/p/pcap-phish-filter/'
 __version__ = '0.0'
 
+
 import sys, os
 
 import pcap
 import client
+
 
 class CheckURL:
     def GetAPIKey(self):
@@ -67,7 +69,7 @@ class CheckURL:
 
 def main():
     if sys.argv[1] == '':
-        print 'No pcap file provded!'
+        print 'No pcap file provded!\n'
         sys.exit(0)        
     else:
         pf = CheckURL(sys.argv[1])

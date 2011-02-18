@@ -195,8 +195,8 @@ class Server(object):
     if not m:
       raise ResponseError('Could not parse next for downloads: "%s"' % (line,))
     try:
-      #dlresp.min_delay_sec = int(m.group(1))
-      dlresp.min_delay_sec = 10
+      # dlresp.min_delay_sec = int(m.group(1))
+      dlresp.min_delay_sec = 10  # XXX: is this delay too short?
     except ValueError, e:
       raise ResponseError('Could not parse next for downloads: "%s"' % (line,))
     active_sbl = None
