@@ -31,7 +31,6 @@ __version__ = '0.0'
 
 import sys, os
 
-import pcap
 import client
 
 
@@ -49,21 +48,18 @@ class CheckURL:
             self._api_key = fin.readline().replace('\n','')
             fin.close()
     
-    def ExtractURL(self):
-        """
-        return a list of URL's extracted from pcap file
-        """
-        return
     
     def __init__(self, pcap_file):
         if os.path.isfile(pcap_file) == False:
             print 'pcap file not found!'
             sys.exit(0)
         self.GetAPIKey()
-        self._pcap_offline = pcap.pcap(pcap_file)
+        # self._pcap_offline = pcap.pcap(pcap_file)
+        # move pcap to CheckForUrl in client
+        self._pcap = pcap_file
         
     def CheckForURL(self):
-        client.CheckForUrl(self._api_key, self.ExtractURL())
+        client.CheckForUrl(self._api_key, self._pcap)
         
         
 
