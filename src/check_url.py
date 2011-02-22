@@ -49,28 +49,19 @@ class CheckURL:
             fin.close()
     
     
-    def __init__(self, pcap_file):
-        if os.path.isfile(pcap_file) == False:
-            print 'pcap file not found!'
-            sys.exit(0)
+    def __init__(self):
         self.GetAPIKey()
-        # self._pcap_offline = pcap.pcap(pcap_file)
-        # move pcap to CheckForUrl in client
-        self._pcap = pcap_file
+
         
     def CheckForURL(self):
-        client.CheckForUrl(self._api_key, self._pcap)
+        client.CheckForUrl(self._api_key)
         
         
 
 def main():
-    if sys.argv[1] == '':
-        print 'No pcap file provded!\n'
-        sys.exit(0)        
-    else:
-        pf = CheckURL(sys.argv[1])
-        pf.CheckForURL()
-        sys.exit(0)
+    pf = CheckURL()
+    pf.CheckForURL()
+    sys.exit(0)
         
         
 if __name__ == "__main__":

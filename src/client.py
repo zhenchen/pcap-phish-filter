@@ -378,18 +378,26 @@ class UrlChecker(object):
     self._urls = []
     self._phish_db.sync()
     url_count = 0
-    while url_count != UrlChecker.GET_URL:
-      url_count += 1
+    url_line = 'hello world'
+    while url_count != UrlChecker.GET_URL and url_line != '':
+      url_line = self._pcap_url.readline().replace('\n','')
+      if url_line != '':
+        url_count += 1
+        self._urls.append(url_line)
 
       
-  def __init__(self, pcap_offline):
+  def __init__(self):
     self._urls = []
     self._event = threading.Event()
     self._phish_db = bsddb.hashopen('./phish-db/phish.db', 'c')
+    self._finished = False
+    self._pcap_url = open('./pcap-url', 'r')
     
     
-  def ClosePhishDB(self):
+  def Close(self):
+    self._phish_db.sync()
     self._phish_db.close()
+    self._pcap_url.close()
     
 
   def WritePhish(self, matching):
@@ -414,16 +422,18 @@ class UrlChecker(object):
       logging.info('Waiting to complete updates...')
       return
     self.GetURL()
-    for url in self._urls:
-      matches = cl.CheckUrl(url)
-      logging.info('CheckUrl %s: %s', url, matches)
-      print '%s:' % (url,)
-      if len(matches) == 0:
-        print '\t(no matches)'
-      else:
-        for listname, matching in matches:
-          print '\t%s: %s' % (listname, matching)
-          self.WirtePhish(matching)
+    if self._finished == True:
+      for url in self._urls:
+        matches = cl.CheckUrl(url)
+        logging.info('CheckUrl %s: %s', url, matches)
+        print '%s:' % (url,)
+        if len(matches) == 0:
+          print '\t(no matches)'
+        else:
+          for listname, matching in matches:
+            print '\t%s: %s' % (listname, matching)
+            self.WirtePhish(matching)
+    self._finished = False
     self._event.set()
 
   def WaitForFinish(self):
@@ -437,19 +447,19 @@ def PrintUsage(argv):
                        % (argv[0],))
 
 
-def CheckForUrl(apikey, pcap_offline):
+def CheckForUrl(apikey):
   # checking_datastore_loc = os.path.join(tempfile.mkdtemp(), 'datastore_checker')
   checking_datastore_loc = './sb-datastore/datastore_checker'
   ds = datastore.DataStore(checking_datastore_loc)
 
-  checker = UrlChecker(pcap_offline)
+  checker = UrlChecker()
 
   cl = Client(ds,
               apikey,
               post_update_hook=checker.Updated)
   checker.WaitForFinish()
   cl.ExitUpdater()
-  checker.ClosePhishDB()
+  checker.Close()
 
 
 def main(argv):
