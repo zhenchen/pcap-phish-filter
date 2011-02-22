@@ -25,7 +25,6 @@ import sys
 import tempfile
 import threading
 import bsddb
-import scapy
 
 import datastore
 import expression
@@ -371,8 +370,6 @@ class UrlChecker(object):
   number of urls to get each time
   """  
   GET_URL = 1000
-  
-  HTTP_FILTER = ''
     
   def GetURL(self):
     """
@@ -381,13 +378,14 @@ class UrlChecker(object):
     self._urls = []
     self._phish_db.sync()
     url_count = 0
+    while url_count != UrlChecker.GET_URL:
+      url_count += 1
 
       
   def __init__(self, pcap_offline):
     self._urls = []
     self._event = threading.Event()
     self._phish_db = bsddb.hashopen('./phish-db/phish.db', 'c')
-    self._pcap = scapy.all.rdpcap(pcap_offline)
     
     
   def ClosePhishDB(self):
