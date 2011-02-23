@@ -365,25 +365,19 @@ class Client(object):
       del self._sbls[name]
 
 
-class UrlChecker(object):
-  """
-  number of urls to get each time
-  """  
-  GET_URL = 1000
-    
+class UrlChecker(object):   
   def GetURL(self):
     """
     update self._urls
     """
     self._urls = []
     self._phish_db.sync()
-    url_count = 0
     url_line = 'hello world'
-    while url_count != UrlChecker.GET_URL and url_line != '':
+    while url_line != '':
       url_line = self._pcap_url.readline().replace('\n','')
       if url_line != '':
-        url_count += 1
         self._urls.append(url_line)
+        print url_line
 
       
   def __init__(self):
