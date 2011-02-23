@@ -23,7 +23,7 @@ import bsddb
 
 phish_db = bsddb.hashopen('phish.db', 'c')
 
-for site, count in db.iteritems():
+for site, count in phish_db.iteritems():
     print '%s %s' % (site, count)
 
 phish_db.close()
