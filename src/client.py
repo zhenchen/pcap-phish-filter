@@ -377,7 +377,6 @@ class UrlChecker(object):
       url_line = self._pcap_url.readline().replace('\n','')
       if url_line != '':
         self._urls.append(url_line)
-        print url_line
 
       
   def __init__(self):
