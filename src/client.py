@@ -426,6 +426,7 @@ class UrlChecker(object):
           print '\t%s: %s' % (listname, matching)
           self.WirtePhish(matching)
           self._phish_count += 1
+    print self._phish_count
     self._event.set()
 
   def WaitForFinish(self):
