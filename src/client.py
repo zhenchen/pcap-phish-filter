@@ -384,6 +384,7 @@ class UrlChecker(object):
     self._event = threading.Event()
     self._phish_db = bsddb.hashopen('./phish-db/phish.db', 'c')
     self._pcap_url = open('./pcap-url', 'r')
+    self._phish_count = 0
     
     
   def Close(self):
@@ -424,6 +425,7 @@ class UrlChecker(object):
         for listname, matching in matches:
           print '\t%s: %s' % (listname, matching)
           self.WirtePhish(matching)
+          self._phish_count += 1
     self._event.set()
 
   def WaitForFinish(self):
