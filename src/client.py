@@ -384,7 +384,6 @@ class UrlChecker(object):
     self._urls = []
     self._event = threading.Event()
     self._phish_db = bsddb.hashopen('./phish-db/phish.db', 'c')
-    self._finished = False
     self._pcap_url = open('./pcap-url', 'r')
     
     
@@ -416,18 +415,16 @@ class UrlChecker(object):
       logging.info('Waiting to complete updates...')
       return
     self.GetURL()
-    if self._finished == True:
-      for url in self._urls:
-        matches = cl.CheckUrl(url)
-        logging.info('CheckUrl %s: %s', url, matches)
-        print '%s:' % (url,)
-        if len(matches) == 0:
-          print '\t(no matches)'
-        else:
-          for listname, matching in matches:
-            print '\t%s: %s' % (listname, matching)
-            self.WirtePhish(matching)
-    self._finished = False
+    for url in self._urls:
+      matches = cl.CheckUrl(url)
+      logging.info('CheckUrl %s: %s', url, matches)
+      print '%s:' % (url,)
+      if len(matches) == 0:
+        print '\t(no matches)'
+      else:
+        for listname, matching in matches:
+          print '\t%s: %s' % (listname, matching)
+          self.WirtePhish(matching)
     self._event.set()
 
   def WaitForFinish(self):
