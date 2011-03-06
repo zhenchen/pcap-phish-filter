@@ -2,7 +2,7 @@
 
 time_beg=`date`
 
-tcptrace -ne --output_dir=extract class_all_*
+tcptrace -ne --output_dir=extract $1
 
 time_fin_tcptrace=`date`
 
