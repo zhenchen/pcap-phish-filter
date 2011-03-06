@@ -422,6 +422,7 @@ class UrlChecker(object):
     self.GetURL()
     self._time_stamp.write(time.asctime() + ' Finished reading URLs\n')
     self._time_stamp.write('%d URLs read into memory' % len(self._urls))
+    self._time_stamp.write(time.asctime() + ' URL checking starting\n')
     for url in self._urls:
       matches = cl.CheckUrl(url)
       logging.info('CheckUrl %s: %s', url, matches)
@@ -434,6 +435,7 @@ class UrlChecker(object):
           self.WirtePhish(matching)
           self._phish_count += 1
     print self._phish_count
+    self._time_stamp.write(time.asctime() + ' URL checking finished\n')
     self._event.set()
 
   def WaitForFinish(self):
