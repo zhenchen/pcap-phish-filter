@@ -6,7 +6,7 @@ tcptrace -ne --output_dir=extract class_all_*
 
 time_fin_tcptrace=`date`
 
-grep -h 'Referer: http://' ./extract/a* >> pcap-url-referer
+grep -h 'Referer: http://' ./extract/a* > pcap-url-referer
 grep -h 'Referer: http://' ./extract/b* >> pcap-url-referer
 grep -h 'Referer: http://' ./extract/c* >> pcap-url-referer
 grep -h 'Referer: http://' ./extract/d* >> pcap-url-referer
