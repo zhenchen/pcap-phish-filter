@@ -25,6 +25,7 @@ import sys
 import tempfile
 import threading
 import bsddb
+import time
 
 import datastore
 import expression
@@ -380,6 +381,8 @@ class UrlChecker(object):
 
       
   def __init__(self):
+    self._time_stamp = open('time-stamp', 'w')
+    self._time_stamp.write(time.asctime() + ' Program started\n')
     self._urls = []
     self._event = threading.Event()
     self._phish_db = bsddb.hashopen('./phish-db/phish.db', 'c')
@@ -391,6 +394,7 @@ class UrlChecker(object):
     self._phish_db.sync()
     self._phish_db.close()
     self._pcap_url.close()
+    self._time_stamp.close()
     
 
   def WritePhish(self, matching):
@@ -414,7 +418,10 @@ class UrlChecker(object):
     if not cl.InSync():
       logging.info('Waiting to complete updates...')
       return
+    self._time_stamp.write(time.asctime() + ' Starting to read URLs\n')
     self.GetURL()
+    self._time_stamp.write(time.asctime() + ' Finished reading URLs\n')
+    self._time_stamp.write('%d URLs read into memory' % len(self._urls))
     for url in self._urls:
       matches = cl.CheckUrl(url)
       logging.info('CheckUrl %s: %s', url, matches)
