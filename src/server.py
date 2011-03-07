@@ -372,7 +372,7 @@ class Server(object):
     try:
       resp = self._url_request_function(url, postdata)
     except Exception, e:
-      print 'path: %s\n'
+      print 'path: %s\n' % path
       raise ServerError('%s failed: %s' % (path, e), original_error=e)
     return resp
 
