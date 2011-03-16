@@ -426,7 +426,7 @@ class UrlChecker(object):
     for url in self._urls:
       matches = cl.CheckUrl(url)
       logging.info('CheckUrl %s: %s', url, matches)
-      print '%s:' % (url,)
+      # print '%s:' % (url,)
       if len(matches) == 0:
         print '\t(no matches)'
       else:
