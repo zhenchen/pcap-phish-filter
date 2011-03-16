@@ -14,11 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A very simple (and slow) persistence mechanism based on the shelve module.
+# Modified by Tianyang Li 2011
+
+"""Use ZODB instead of shelve
 """
 
 import logging
-import shelve
+import ZODB.DB
+import ZODB.FileStorage
 
 
 class Error(Exception):
@@ -41,18 +44,10 @@ class DataStore(object):
   CLIENTKEY = 'clientkey'
 
   def __init__(self, basefile, create=True):
-    flags = 'w'
-    if create:
-      flags = 'c'
-    try:
-      # We must use protocol 2 because we are using __slots__ on classes that
-      # are pickled, and older protocol versions choke unless you overwrite
-      # __getstate__ and __setstate__ manually. This also writes out the data
-      # in a more compact binary representation.
-      self._db = shelve.open(basefile, flag=flags, writeback=True, protocol=2)
-    except Exception, e:
-      raise Error(e)
-
+    self._storage = ZODB.FileStorage.FileStorage('phish-hash.fs')
+    self._DB = ZODB.DB.DB(self._storage)
+    self._connection = self._DB.open()
+    self._db = self._connection.root()
     self._db.setdefault(DataStore.LISTS, {})
     self._db.setdefault(DataStore.WRKEY, None)
     self._db.setdefault(DataStore.CLIENTKEY, None)
