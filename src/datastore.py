@@ -20,6 +20,8 @@
 """
 
 import logging
+import transaction
+
 import ZODB
 import ZODB.FileStorage
 
@@ -53,7 +55,7 @@ class DataStore(object):
     self._db.setdefault(DataStore.CLIENTKEY, None)
 
   def Sync(self):
-    pass
+    transaction.commit()
 
   def GetLists(self):
     """
