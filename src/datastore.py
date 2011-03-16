@@ -53,16 +53,7 @@ class DataStore(object):
     self._db.setdefault(DataStore.CLIENTKEY, None)
 
   def Sync(self):
-    """
-    This is very slow.
-
-    TODO(gcasto): Possibly change __getstate__ and __setstate__ for list objects
-    to change how we pickle them. The current implementation is doing more work
-    than is necessary since the expressions are stored in multiple ways. Writing
-    out the hashes and chunk numbers explicity and then rebuilding the necessary
-    datastructures may be better.
-    """
-    self._db.sync()
+    pass
 
   def GetLists(self):
     """
