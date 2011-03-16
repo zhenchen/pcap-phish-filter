@@ -21,6 +21,7 @@
 
 import logging
 import ZODB
+import ZODB.FileStorage
 
 
 class Error(Exception):
