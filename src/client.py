@@ -428,7 +428,8 @@ class UrlChecker(object):
       logging.info('CheckUrl %s: %s', url, matches)
       # print '%s:' % (url,)
       if len(matches) == 0:
-        print '\t(no matches)'
+        # print '\t(no matches)'
+        pass
       else:
         for listname, matching in matches:
           print '\t%s: %s' % (listname, matching)
