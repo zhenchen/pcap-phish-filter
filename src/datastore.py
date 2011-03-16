@@ -20,8 +20,7 @@
 """
 
 import logging
-import ZODB.DB
-import ZODB.FileStorage
+import ZODB
 
 
 class Error(Exception):
@@ -45,7 +44,7 @@ class DataStore(object):
 
   def __init__(self, basefile, create=True):
     self._storage = ZODB.FileStorage.FileStorage('phish-hash.fs')
-    self._DB = ZODB.DB.DB(self._storage)
+    self._DB = ZODB.DB(self._storage)
     self._connection = self._DB.open()
     self._db = self._connection.root()
     self._db.setdefault(DataStore.LISTS, {})
