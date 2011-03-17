@@ -14,16 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Modified by Tianyang Li 2011
-
-"""Use ZODB instead of shelve
+"""A very simple (and slow) persistence mechanism based on the shelve module.
 """
 
 import logging
-import transaction
-
-import ZODB
-import ZODB.FileStorage
+import shelve
 
 
 class Error(Exception):
@@ -46,16 +41,33 @@ class DataStore(object):
   CLIENTKEY = 'clientkey'
 
   def __init__(self, basefile, create=True):
-    self._storage = ZODB.FileStorage.FileStorage('phish-hash.fs')
-    self._DB = ZODB.DB(self._storage)
-    self._connection = self._DB.open()
-    self._db = self._connection.root()
+    flags = 'w'
+    if create:
+      flags = 'c'
+    try:
+      # We must use protocol 2 because we are using __slots__ on classes that
+      # are pickled, and older protocol versions choke unless you overwrite
+      # __getstate__ and __setstate__ manually. This also writes out the data
+      # in a more compact binary representation.
+      self._db = shelve.open(basefile, flag=flags, writeback=True, protocol=2)
+    except Exception, e:
+      raise Error(e)
+
     self._db.setdefault(DataStore.LISTS, {})
     self._db.setdefault(DataStore.WRKEY, None)
     self._db.setdefault(DataStore.CLIENTKEY, None)
 
   def Sync(self):
-    transaction.commit()
+    """
+    This is very slow.
+
+    TODO(gcasto): Possibly change __getstate__ and __setstate__ for list objects
+    to change how we pickle them. The current implementation is doing more work
+    than is necessary since the expressions are stored in multiple ways. Writing
+    out the hashes and chunk numbers explicity and then rebuilding the necessary
+    datastructures may be better.
+    """
+    self._db.sync()
 
   def GetLists(self):
     """
